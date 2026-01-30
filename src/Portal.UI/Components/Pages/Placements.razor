@@ -1,0 +1,117 @@
+@page "/placements"
+@layout MainLayout
+
+<PageTitle>Placements - Placement Tracker</PageTitle>
+
+<div style="padding: 2rem;">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Placement Records</h1>
+        <p>Track all student placements and offers</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <select class="form-control" style="max-width: 200px;">
+            <option>All Batches</option>
+            <option>2023</option>
+            <option>2022</option>
+            <option>2021</option>
+        </select>
+        <select class="form-control" style="max-width: 200px;">
+            <option>All Status</option>
+            <option>Confirmed</option>
+            <option>Offered</option>
+            <option>Selected</option>
+        </select>
+        <input type="text" class="form-control" placeholder="Search by company..." style="max-width: 300px;" />
+        <button class="btn btn-primary">+ Record Placement</button>
+    </div>
+
+    <!-- Placement Statistics -->
+    <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card success">
+            <h3>Total Placements</h3>
+            <div class="value">856</div>
+            <div class="subtitle">Confirmed placements</div>
+        </div>
+        <div class="stat-card warning">
+            <h3>Pending Offers</h3>
+            <div class="value">124</div>
+            <div class="subtitle">Awaiting confirmation</div>
+        </div>
+        <div class="stat-card">
+            <h3>Average Package</h3>
+            <div class="value">₹7.2L</div>
+            <div class="subtitle">Per annum</div>
+        </div>
+    </div>
+
+    <!-- Placements Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Company</th>
+                <th>Position</th>
+                <th>Package</th>
+                <th>Bond Period</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Raj Kumar</td>
+                <td>Tech Solutions Ltd</td>
+                <td>Software Engineer</td>
+                <td>₹8,00,000</td>
+                <td>2 Years</td>
+                <td>Jan 25, 2026</td>
+                <td><span class="badge badge-success">Confirmed</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">Details</button></td>
+            </tr>
+            <tr>
+                <td>Priya Sharma</td>
+                <td>Digital Innovations</td>
+                <td>Data Analyst</td>
+                <td>₹6,50,000</td>
+                <td>2 Years</td>
+                <td>Jan 24, 2026</td>
+                <td><span class="badge badge-success">Confirmed</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">Details</button></td>
+            </tr>
+            <tr>
+                <td>Arjun Singh</td>
+                <td>CloudTech Systems</td>
+                <td>DevOps Engineer</td>
+                <td>₹9,50,000</td>
+                <td>3 Years</td>
+                <td>Jan 23, 2026</td>
+                <td><span class="badge badge-success">Confirmed</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">Details</button></td>
+            </tr>
+            <tr>
+                <td>Anjali Gupta</td>
+                <td>AI Futures Inc</td>
+                <td>ML Engineer</td>
+                <td>₹10,50,000</td>
+                <td>2 Years</td>
+                <td>Jan 22, 2026</td>
+                <td><span class="badge badge-warning">Offered</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">Details</button></td>
+            </tr>
+            <tr>
+                <td>Vikram Patel</td>
+                <td>Digital Marketing Pro</td>
+                <td>Marketing Manager</td>
+                <td>₹5,50,000</td>
+                <td>1.5 Years</td>
+                <td>Jan 21, 2026</td>
+                <td><span class="badge badge-success">Confirmed</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">Details</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

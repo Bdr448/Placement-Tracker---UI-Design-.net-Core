@@ -1,0 +1,99 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <span style="font-weight: 700; font-size: 1.25rem;">🎓 Placement Tracker</span>
+        </a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Dashboard
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="students">
+                <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span> Students
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="placements">
+                <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Placements
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="companies">
+                <span class="bi bi-building-nav-menu" aria-hidden="true"></span> Companies
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="reports">
+                <span class="bi bi-bar-chart-fill-nav-menu" aria-hidden="true"></span> Reports
+            </NavLink>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.2); margin: 1rem 0;" />
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter (Demo)
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <span class="bi bi-cloud-fill-nav-menu" aria-hidden="true"></span> Weather (Demo)
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+<style>
+    .navbar-brand {
+        color: white !important;
+    }
+
+    .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 0.75rem 1rem !important;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white !important;
+    }
+
+    .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white !important;
+        border-left: 3px solid white;
+        padding-left: calc(1rem - 3px) !important;
+    }
+
+    .nav-link span {
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+    }
+
+    .nav-scrollable {
+        padding: 1rem 0;
+    }
+</style>
+

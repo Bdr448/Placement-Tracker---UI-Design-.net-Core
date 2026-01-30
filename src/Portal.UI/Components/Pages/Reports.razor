@@ -1,0 +1,210 @@
+@page "/reports"
+@layout MainLayout
+
+<PageTitle>Reports - Placement Tracker</PageTitle>
+
+<div style="padding: 2rem;">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Placement Analytics & Reports</h1>
+        <p>Comprehensive placement statistics and insights</p>
+    </div>
+
+    <!-- Report Generation Tools -->
+    <div style="margin-bottom: 2rem;">
+        <h2>Generate Reports</h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <select class="form-control" style="max-width: 200px;">
+                <option>Select Report Type</option>
+                <option>Placement Summary</option>
+                <option>Student Details</option>
+                <option>Company Performance</option>
+                <option>Package Analysis</option>
+            </select>
+            <select class="form-control" style="max-width: 150px;">
+                <option>2023-24</option>
+                <option>2022-23</option>
+                <option>2021-22</option>
+            </select>
+            <button class="btn btn-primary">Generate PDF</button>
+            <button class="btn btn-secondary">Export Excel</button>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="stats-grid" style="margin-bottom: 2rem;">
+        <div class="stat-card success">
+            <h3>Placement Rate</h3>
+            <div class="value">69%</div>
+            <div class="subtitle">856 out of 1,240 students</div>
+        </div>
+        <div class="stat-card">
+            <h3>Highest Package</h3>
+            <div class="value">₹15.5L</div>
+            <div class="subtitle">Per annum</div>
+        </div>
+        <div class="stat-card">
+            <h3>Average Package</h3>
+            <div class="value">₹7.2L</div>
+            <div class="subtitle">Per annum</div>
+        </div>
+        <div class="stat-card">
+            <h3>Internships</h3>
+            <div class="value">324</div>
+            <div class="subtitle">Completed</div>
+        </div>
+    </div>
+
+    <!-- Detailed Statistics -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div class="card">
+            <h3>Placement by Batch</h3>
+            <table style="width: 100%; border: none;">
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>2023</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">856 (69%)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>2022</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">742 (71%)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>2021</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">658 (68%)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.5rem 0;"><strong>2020</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">531 (65%)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Package Range Distribution</h3>
+            <table style="width: 100%; border: none;">
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>Above ₹10L</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">128 (15%)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>₹8-10L</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">245 (29%)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 0.5rem 0;"><strong>₹6-8L</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">356 (42%)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.5rem 0;"><strong>Below ₹6L</strong></td>
+                    <td style="text-align: right; padding: 0.5rem 0;">127 (15%)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Industry Distribution -->
+    <div class="card" style="margin-bottom: 2rem;">
+        <h3>Placement by Industry</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Industry</th>
+                    <th>Company Count</th>
+                    <th>Placements</th>
+                    <th>Avg Package</th>
+                    <th>Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>IT & Software</td>
+                    <td>18</td>
+                    <td>425</td>
+                    <td>₹8,50,000</td>
+                    <td>49.6%</td>
+                </tr>
+                <tr>
+                    <td>Consulting</td>
+                    <td>8</td>
+                    <td>156</td>
+                    <td>₹7,20,000</td>
+                    <td>18.2%</td>
+                </tr>
+                <tr>
+                    <td>Finance</td>
+                    <td>6</td>
+                    <td>127</td>
+                    <td>₹6,80,000</td>
+                    <td>14.8%</td>
+                </tr>
+                <tr>
+                    <td>Marketing & Sales</td>
+                    <td>5</td>
+                    <td>89</td>
+                    <td>₹5,50,000</td>
+                    <td>10.4%</td>
+                </tr>
+                <tr>
+                    <td>Others</td>
+                    <td>5</td>
+                    <td>59</td>
+                    <td>₹5,10,000</td>
+                    <td>6.9%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Top Recruiters -->
+    <div class="card">
+        <h3>Top 10 Recruiting Companies</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Company Name</th>
+                    <th>Placements</th>
+                    <th>Avg Package</th>
+                    <th>Highest</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Tech Solutions Ltd</td>
+                    <td>145</td>
+                    <td>₹7,50,000</td>
+                    <td>₹12,00,000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Digital Innovations</td>
+                    <td>98</td>
+                    <td>₹6,80,000</td>
+                    <td>₹9,50,000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>CloudTech Systems</td>
+                    <td>87</td>
+                    <td>₹9,20,000</td>
+                    <td>₹14,00,000</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>AI Futures Inc</td>
+                    <td>56</td>
+                    <td>₹10,80,000</td>
+                    <td>₹15,50,000</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Enterprise Solutions</td>
+                    <td>52</td>
+                    <td>₹7,10,000</td>
+                    <td>₹11,20,000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

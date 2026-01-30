@@ -1,0 +1,115 @@
+@page "/students"
+@layout MainLayout
+
+<PageTitle>Students - Placement Tracker</PageTitle>
+
+<div style="padding: 2rem;">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Students Management</h1>
+        <p>Manage and track all student placements</p>
+    </div>
+
+    <!-- Search and Filter -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <input type="text" class="form-control" placeholder="Search students..." style="max-width: 300px;" />
+        <select class="form-control" style="max-width: 200px;">
+            <option>All Status</option>
+            <option>Placed</option>
+            <option>Pending</option>
+            <option>Not Interested</option>
+        </select>
+        <button class="btn btn-primary">+ Add Student</button>
+    </div>
+
+    <!-- Students Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Batch</th>
+                <th>CGPA</th>
+                <th>Status</th>
+                <th>Company</th>
+                <th>Package</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#STU001</td>
+                <td>Raj Kumar</td>
+                <td>raj.kumar@email.com</td>
+                <td>2023</td>
+                <td>8.5</td>
+                <td><span class="badge badge-success">Placed</span></td>
+                <td>Tech Solutions Ltd</td>
+                <td>₹8,00,000</td>
+                <td>
+                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td>#STU002</td>
+                <td>Priya Sharma</td>
+                <td>priya.sharma@email.com</td>
+                <td>2023</td>
+                <td>8.8</td>
+                <td><span class="badge badge-success">Placed</span></td>
+                <td>Digital Innovations</td>
+                <td>₹6,50,000</td>
+                <td>
+                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td>#STU003</td>
+                <td>Arjun Singh</td>
+                <td>arjun.singh@email.com</td>
+                <td>2023</td>
+                <td>8.2</td>
+                <td><span class="badge badge-warning">Pending</span></td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td>#STU004</td>
+                <td>Anjali Gupta</td>
+                <td>anjali.gupta@email.com</td>
+                <td>2023</td>
+                <td>9.1</td>
+                <td><span class="badge badge-success">Placed</span></td>
+                <td>AI Futures Inc</td>
+                <td>₹10,50,000</td>
+                <td>
+                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button>
+                </td>
+            </tr>
+            <tr>
+                <td>#STU005</td>
+                <td>Vikram Patel</td>
+                <td>vikram.patel@email.com</td>
+                <td>2023</td>
+                <td>7.9</td>
+                <td><span class="badge badge-success">Placed</span></td>
+                <td>Digital Marketing Pro</td>
+                <td>₹5,50,000</td>
+                <td>
+                    <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div style="margin-top: 2rem; text-align: center;">
+        <button class="btn btn-secondary" style="margin-right: 1rem;">Previous</button>
+        <span style="padding: 10px 15px;">Page 1 of 5</span>
+        <button class="btn btn-secondary" style="margin-left: 1rem;">Next</button>
+    </div>
+</div>

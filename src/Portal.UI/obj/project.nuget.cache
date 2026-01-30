@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "qCXViImU9Hw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SSPL1545\\Desktop\\my project\\backend\\MyProject\\src\\Portal.UI\\Portal.UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SSPL1545\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.2\\microsoft.aspnetcore.app.internal.assets.10.0.2.nupkg.sha512",
+    "C:\\Users\\SSPL1545\\.nuget\\packages\\microsoft.fluentui.aspnetcore.components\\4.13.2\\microsoft.fluentui.aspnetcore.components.4.13.2.nupkg.sha512",
+    "C:\\Users\\SSPL1545\\.nuget\\packages\\microsoft.fluentui.aspnetcore.components.icons\\4.13.2\\microsoft.fluentui.aspnetcore.components.icons.4.13.2.nupkg.sha512"
+  ],
+  "logs": []
+}

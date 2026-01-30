@@ -1,0 +1,168 @@
+@page "/companies"
+@layout MainLayout
+
+<PageTitle>Companies - Placement Tracker</PageTitle>
+
+<div style="padding: 2rem;">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Recruiting Companies</h1>
+        <p>Manage all companies registered for placements</p>
+    </div>
+
+    <!-- Company Management -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <input type="text" class="form-control" placeholder="Search companies..." style="max-width: 300px;" />
+        <select class="form-control" style="max-width: 200px;">
+            <option>All Status</option>
+            <option>Active</option>
+            <option>Recruiting</option>
+            <option>Completed</option>
+        </select>
+        <button class="btn btn-primary">+ Register Company</button>
+    </div>
+
+    <!-- Companies Grid View -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div class="card">
+            <h3>Tech Solutions Ltd</h3>
+            <div style="margin: 1rem 0;">
+                <p><strong>Industry:</strong> IT & Software</p>
+                <p><strong>Contact:</strong> contact@techsol.com</p>
+                <p><strong>Phone:</strong> +91-98765-43210</p>
+            </div>
+            <div style="padding: 1rem 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Placements:</span>
+                    <strong>145</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Avg Package:</span>
+                    <strong>₹7,50,000</strong>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn btn-primary" style="flex: 1; padding: 8px;">Edit</button>
+                <button class="btn btn-secondary" style="flex: 1; padding: 8px;">View</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Digital Innovations</h3>
+            <div style="margin: 1rem 0;">
+                <p><strong>Industry:</strong> Digital Marketing</p>
+                <p><strong>Contact:</strong> hr@diginnovate.com</p>
+                <p><strong>Phone:</strong> +91-87654-32109</p>
+            </div>
+            <div style="padding: 1rem 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Placements:</span>
+                    <strong>98</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Avg Package:</span>
+                    <strong>₹6,80,000</strong>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn btn-primary" style="flex: 1; padding: 8px;">Edit</button>
+                <button class="btn btn-secondary" style="flex: 1; padding: 8px;">View</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>CloudTech Systems</h3>
+            <div style="margin: 1rem 0;">
+                <p><strong>Industry:</strong> Cloud Services</p>
+                <p><strong>Contact:</strong> careers@cloudtech.com</p>
+                <p><strong>Phone:</strong> +91-76543-21098</p>
+            </div>
+            <div style="padding: 1rem 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Placements:</span>
+                    <strong>87</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Avg Package:</span>
+                    <strong>₹9,20,000</strong>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn btn-primary" style="flex: 1; padding: 8px;">Edit</button>
+                <button class="btn btn-secondary" style="flex: 1; padding: 8px;">View</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>AI Futures Inc</h3>
+            <div style="margin: 1rem 0;">
+                <p><strong>Industry:</strong> Artificial Intelligence</p>
+                <p><strong>Contact:</strong> recruitment@aifutures.com</p>
+                <p><strong>Phone:</strong> +91-65432-10987</p>
+            </div>
+            <div style="padding: 1rem 0; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Placements:</span>
+                    <strong>56</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Avg Package:</span>
+                    <strong>₹10,80,000</strong>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                <button class="btn btn-primary" style="flex: 1; padding: 8px;">Edit</button>
+                <button class="btn btn-secondary" style="flex: 1; padding: 8px;">View</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Companies Table -->
+    <h2>All Companies</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Industry</th>
+                <th>Contact Person</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Placements</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tech Solutions Ltd</td>
+                <td>IT & Software</td>
+                <td>Raj Verma</td>
+                <td>contact@techsol.com</td>
+                <td>+91-98765-43210</td>
+                <td>145</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button></td>
+            </tr>
+            <tr>
+                <td>Digital Innovations</td>
+                <td>Digital Marketing</td>
+                <td>Priya Singh</td>
+                <td>hr@diginnovate.com</td>
+                <td>+91-87654-32109</td>
+                <td>98</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button></td>
+            </tr>
+            <tr>
+                <td>CloudTech Systems</td>
+                <td>Cloud Services</td>
+                <td>Arjun Patel</td>
+                <td>careers@cloudtech.com</td>
+                <td>+91-76543-21098</td>
+                <td>87</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td><button class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.75rem;">View</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
