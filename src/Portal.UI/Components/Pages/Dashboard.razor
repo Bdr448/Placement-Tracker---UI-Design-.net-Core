@@ -18,7 +18,7 @@
 }
 else if (AuthState.UserRole == UserRole.Student)
 {
-    <RedirectTo url="/student-dashboard" />
+    Navigation.NavigateTo("/dashboard", replace: true);
 }
 else
 {

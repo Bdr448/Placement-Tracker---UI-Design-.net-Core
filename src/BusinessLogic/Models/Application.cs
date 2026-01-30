@@ -8,8 +8,8 @@ namespace BusinessLogic.Models
         public ApplicationStatus Status { get; set; }
         public DateTime AppliedAt { get; set; }
         public DateTime? InterviewDate { get; set; }
-        public string InterviewLink { get; set; }
-        public string InterviewNotes { get; set; }
+        public string? InterviewLink { get; set; }
+        public string? InterviewNotes { get; set; }
     }
 
     public enum ApplicationStatus

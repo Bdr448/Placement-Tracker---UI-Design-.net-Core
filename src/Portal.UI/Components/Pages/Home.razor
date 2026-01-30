@@ -35,14 +35,14 @@ else
     public class RedirectComponent : ComponentBase
     {
         [Parameter]
-        public string Url { get; set; }
+        public string? Url { get; set; }
 
         [Inject]
-        private NavigationManager NavManager { get; set; }
+        private NavigationManager? NavManager { get; set; }
 
         protected override void OnInitialized()
         {
-            if (!string.IsNullOrEmpty(Url))
+            if (!string.IsNullOrEmpty(Url) && NavManager != null)
             {
                 NavManager.NavigateTo(Url, replace: true);
             }
