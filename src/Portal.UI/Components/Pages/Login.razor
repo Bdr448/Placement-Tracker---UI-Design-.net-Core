@@ -1,0 +1,110 @@
+@page "/login"
+@using BusinessLogic.Services
+@using BusinessLogic.Models
+@using Portal.UI.Services
+@inject AuthenticationService AuthService
+@inject AuthState AuthState
+@inject NavigationManager Navigation
+
+<PageTitle>Login - Placement Tracker</PageTitle>
+
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="login-container" style="background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); padding: 2rem; width: 100%; max-width: 450px;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 2rem; color: #333; margin: 0;">🎓 Placement Tracker</h1>
+            <p style="color: #666; margin-top: 0.5rem;">Login to Your Account</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div style="background: #fee; border-left: 4px solid #f44; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; color: #c33;">
+                @ErrorMessage
+            </div>
+        }
+
+        <form @onsubmit="HandleLogin">
+            <!-- Email Input -->
+            <div style="margin-bottom: 1rem;">
+                <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Email Address</label>
+                <input type="email" id="email" @bind="Email" class="form-control" placeholder="Enter your email" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;" />
+            </div>
+
+            <!-- Password Input -->
+            <div style="margin-bottom: 1.5rem;">
+                <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Password</label>
+                <input type="password" id="password" @bind="Password" class="form-control" placeholder="Enter your password" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;" />
+            </div>
+
+            <!-- Demo Credentials Info -->
+            <div style="background: #f0f7ff; border-left: 4px solid #667eea; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem;">
+                <p style="margin: 0; font-weight: 600; color: #333;">Demo Credentials:</p>
+                <p style="margin: 0.5rem 0 0 0; color: #666;">
+                    <strong>Admin:</strong> admin@placement.com / admin123<br/>
+                    <strong>Student 1:</strong> student1@placement.com / student123<br/>
+                    <strong>Student 2:</strong> student2@placement.com / student123
+                </p>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 600; border: none; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; cursor: pointer; transition: transform 0.2s;">
+                @if (IsLoading)
+                {
+                    <span>Logging in...</span>
+                }
+                else
+                {
+                    <span>Login</span>
+                }
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div style="text-align: center; margin: 1.5rem 0; position: relative;">
+            <span style="background: white; padding: 0 10px; color: #999; position: relative; z-index: 1;">OR</span>
+            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #ddd; z-index: 0;"></div>
+        </div>
+
+        <!-- Register Link -->
+        <p style="text-align: center; color: #666; margin-top: 1rem;">
+            Don't have an account? 
+            <NavLink href="/register" style="color: #667eea; font-weight: 600; text-decoration: none;">Register here</NavLink>
+        </p>
+    </div>
+</div>
+
+@code {
+    private string Email = "";
+    private string Password = "";
+    private string ErrorMessage = "";
+    private bool IsLoading = false;
+
+    private async Task HandleLogin()
+    {
+        ErrorMessage = "";
+        IsLoading = true;
+
+        try
+        {
+            var user = AuthService.Login(Email, Password);
+            
+            if (user != null)
+            {
+                AuthState.SetUser(user);
+                Navigation.NavigateTo("/dashboard", forceLoad: false);
+            }
+            else
+            {
+                ErrorMessage = "Invalid email or password. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Login error: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}

@@ -1,5 +1,7 @@
 using Portal.UI.Components;
+using Portal.UI.Services;
 using BusinessLogic;
+using BusinessLogic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Register simple services from BusinessLogic
+// Register all services
 builder.Services.AddSingleton<DataProcessor>();
+builder.Services.AddSingleton<AuthState>();
+builder.Services.AddSingleton<AuthenticationService>();
+builder.Services.AddSingleton<CompanyService>();
+builder.Services.AddSingleton<ApplicationService>();
+builder.Services.AddSingleton<NotificationService>();
 
 var app = builder.Build();
 
@@ -28,26 +35,7 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.Run();
-// i know 
-// su karache
-// ? kai nai docs kholi ne besi chhu
-// loko aaya chhe tara lab ma bau ?
-// haa avya chhe bdha seniour 
-// saru kehvay 
-// taame loko ketla vaage aaya aaje ?
-// aaje hu ekli j aavi hti jay nthi AAJ 9 vaage avya
-// km late aavano chhe ?
-// naa e 2 divas leave par chhe ena kai dada nu besnu ke evu kai chhe barmu ke evu khbr nai 
-// achha hamne nai khbr km k hamne ene evu kai kidhu nathi haal
-// ene status mukyu htu 
-// achha joi lais 
-// atyare jatu rahyu hasheee
-// vandho nai pachi kyarek 
-// baki tare javama takleef hoy oth kehje muki jaiS
-// hu ek var iskon pochi jav pachhi taklif nthi 
-// tya sudhi nu j kau chhu 
-// joiyeee 
+app.Run(); 
 // ok np jo late thse evu lagse to tne kai dais 
 // ohk 
 // mane bau bhukh laagi chhe 

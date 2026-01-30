@@ -1,8 +1,18 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using BusinessLogic.Models
+@using Portal.UI.Services
+@inject AuthState AuthState
+@inject NavigationManager Navigation
+@implements IAsyncDisposable
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">
             <span style="font-weight: 700; font-size: 1.25rem;">🎓 Placement Tracker</span>
         </a>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-left: auto;">
+            <span style="color: white; font-size: 0.9rem;">👤 @AuthState.UserName</span>
+            <button @onclick="Logout" class="btn btn-logout">Logout</button>
+        </div>
     </div>
 </div>
 
@@ -10,49 +20,72 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Dashboard
-            </NavLink>
-        </div>
+        @if (AuthState.UserRole == UserRole.Admin)
+        {
+            <!-- Admin Navigation -->
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="dashboard" Match="NavLinkMatch.All">
+                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Dashboard
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="students">
-                <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span> Students
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="manage-companies">
+                    <span class="bi bi-building-nav-menu" aria-hidden="true"></span> Companies
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="placements">
-                <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Placements
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="manage-applications">
+                    <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Applications
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="companies">
-                <span class="bi bi-building-nav-menu" aria-hidden="true"></span> Companies
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="manage-students">
+                    <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span> Students
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="reports">
-                <span class="bi bi-bar-chart-fill-nav-menu" aria-hidden="true"></span> Reports
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="manage-interviews">
+                    <span class="bi bi-calendar-event-nav-menu" aria-hidden="true"></span> Interviews
+                </NavLink>
+            </div>
+        }
+        else if (AuthState.UserRole == UserRole.Student)
+        {
+            <!-- Student Navigation -->
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="student-dashboard" Match="NavLinkMatch.All">
+                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Dashboard
+                </NavLink>
+            </div>
 
-        <hr style="border-color: rgba(255,255,255,0.2); margin: 1rem 0;" />
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="browse-companies">
+                    <span class="bi bi-building-nav-menu" aria-hidden="true"></span> Companies
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter (Demo)
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="my-applications">
+                    <span class="bi bi-briefcase-fill-nav-menu" aria-hidden="true"></span> Applications
+                </NavLink>
+            </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-cloud-fill-nav-menu" aria-hidden="true"></span> Weather (Demo)
-            </NavLink>
-        </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="my-interviews">
+                    <span class="bi bi-calendar-event-nav-menu" aria-hidden="true"></span> Interviews
+                </NavLink>
+            </div>
+
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="my-profile">
+                    <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> Profile
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 
@@ -73,6 +106,7 @@
         border-radius: 6px;
         transition: all 0.3s ease;
         font-weight: 500;
+        text-decoration: none;
     }
 
     .nav-link:hover {
@@ -95,5 +129,44 @@
     .nav-scrollable {
         padding: 1rem 0;
     }
+
+    .btn-logout {
+        background: rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+    }
+
+    .btn-logout:hover {
+        background: rgba(255,255,255,0.3);
+    }
+
+    .top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 </style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        AuthState.OnStateChanged += StateHasChanged;
+    }
+
+    private void Logout()
+    {
+        AuthState.SetUser(null);
+        Navigation.NavigateTo("/login", forceLoad: true);
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        AuthState.OnStateChanged -= StateHasChanged;
+    }
+}
 

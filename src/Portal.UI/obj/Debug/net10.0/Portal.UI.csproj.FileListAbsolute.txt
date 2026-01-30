@@ -134,3 +134,4 @@ C:\Users\SSPL1545\Desktop\my project\backend\MyProject\src\Portal.UI\obj\Debug\n
 C:\Users\SSPL1545\Desktop\my project\backend\MyProject\src\Portal.UI\obj\Debug\net10.0\Portal.UI.pdb
 C:\Users\SSPL1545\Desktop\my project\backend\MyProject\src\Portal.UI\obj\Debug\net10.0\Portal.UI.genruntimeconfig.cache
 C:\Users\SSPL1545\Desktop\my project\backend\MyProject\src\Portal.UI\obj\Debug\net10.0\ref\Portal.UI.dll
+C:\Users\SSPL1545\Desktop\my project\backend\MyProject\src\Portal.UI\obj\Debug\net10.0\Portal.UI.sourcelink.json

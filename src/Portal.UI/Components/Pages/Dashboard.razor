@@ -1,0 +1,225 @@
+@page "/dashboard"
+@using BusinessLogic.Services
+@using BusinessLogic.Models
+@using Portal.UI.Services
+@inject AuthState AuthState
+@inject ApplicationService AppService
+@inject CompanyService CompanyService
+@inject NotificationService NotificationService
+@inject NavigationManager Navigation
+
+<PageTitle>Admin Dashboard - Placement Tracker</PageTitle>
+
+@if (!AuthState.IsAuthenticated)
+{
+    <div style="padding: 2rem; text-align: center;">
+        <p>Please <NavLink href="/login">login</NavLink> to continue</p>
+    </div>
+}
+else if (AuthState.UserRole == UserRole.Student)
+{
+    <RedirectTo url="/student-dashboard" />
+}
+else
+{
+    <div style="padding: 2rem;">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>📊 Admin Dashboard</h1>
+            <p>Welcome, @AuthState.UserName</p>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <div class="value">@(AuthState.UserRole == UserRole.Admin ? studentCount : 0)</div>
+                <div class="subtitle">Enrolled in program</div>
+            </div>
+            <div class="stat-card success">
+                <h3>Placed Students</h3>
+                <div class="value">@placedCount</div>
+                <div class="subtitle">Successfully placed</div>
+            </div>
+            <div class="stat-card warning">
+                <h3>Pending Applications</h3>
+                <div class="value">@pendingCount</div>
+                <div class="subtitle">Awaiting review</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Companies</h3>
+                <div class="value">@companyCount</div>
+                <div class="subtitle">Recruiting partners</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="margin: 2rem 0; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <NavLink href="/manage-companies" class="btn btn-primary">+ Add Company</NavLink>
+            <NavLink href="/manage-applications" class="btn btn-secondary">View Applications</NavLink>
+            <button @onclick="RefreshStats" class="btn btn-secondary">Refresh Stats</button>
+        </div>
+
+        <!-- Recent Applications -->
+        <div style="background: white; border-radius: 8px; padding: 2rem; margin-top: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h2>Recent Applications</h2>
+            @if (recentApplications.Count > 0)
+            {
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 1rem; text-align: left;">Student</th>
+                            <th style="padding: 1rem; text-align: left;">Company</th>
+                            <th style="padding: 1rem; text-align: left;">Status</th>
+                            <th style="padding: 1rem; text-align: left;">Applied</th>
+                            <th style="padding: 1rem; text-align: left;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var app in recentApplications.Take(5))
+                        {
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 1rem;">@(GetStudentName(app.StudentId))</td>
+                                <td style="padding: 1rem;">@(GetCompanyName(app.CompanyId))</td>
+                                <td style="padding: 1rem;">
+                                    <span class="badge" style="background: @GetStatusColor(app.Status); color: white; padding: 4px 8px; border-radius: 4px;">
+                                        @app.Status
+                                    </span>
+                                </td>
+                                <td style="padding: 1rem;">@app.AppliedAt.ToString("dd MMM yyyy")</td>
+                                <td style="padding: 1rem;">
+                                    <NavLink href="@($"/view-application/{app.Id}")" class="btn btn-sm btn-primary">View</NavLink>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p style="color: #666; text-align: center; padding: 2rem;">No applications yet</p>
+            }
+        </div>
+    </div>
+}
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .stat-card.success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+
+    .stat-card.warning {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .stat-card h3 {
+        margin: 0 0 1rem 0;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .stat-card .value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+    }
+
+    .stat-card .subtitle {
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+
+    .page-header {
+        margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+        margin: 0;
+        color: #333;
+    }
+
+    .page-header p {
+        color: #666;
+        margin: 0.5rem 0 0 0;
+    }
+
+    .badge {
+        display: inline-block;
+    }
+</style>
+
+@code {
+    private int studentCount = 0;
+    private int companyCount = 0;
+    private int placedCount = 0;
+    private int pendingCount = 0;
+    private int scheduledCount = 0;
+    private List<Application> recentApplications = new();
+
+    protected override void OnInitialized()
+    {
+        if (!AuthState.IsAuthenticated)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            LoadStats();
+        }
+    }
+
+    private void LoadStats()
+    {
+        studentCount = AuthState.UserRole == UserRole.Admin ? 2 : 0; // Demo data
+        companyCount = CompanyService.GetAllCompanies().Count;
+        placedCount = AppService.GetPlacedStudentsCount();
+        pendingCount = AppService.GetPendingApplicationsCount();
+        scheduledCount = AppService.GetScheduledInterviewsCount();
+        recentApplications = AppService.GetAllApplications().OrderByDescending(a => a.AppliedAt).ToList();
+    }
+
+    private void RefreshStats()
+    {
+        LoadStats();
+    }
+
+    private string GetStudentName(int studentId)
+    {
+        // In demo, show basic info
+        return $"Student #{studentId}";
+    }
+
+    private string GetCompanyName(int companyId)
+    {
+        var company = CompanyService.GetCompanyById(companyId);
+        return company?.Name ?? "Unknown";
+    }
+
+    private string GetStatusColor(ApplicationStatus status)
+    {
+        return status switch
+        {
+            ApplicationStatus.Applied => "#fbbf24",
+            ApplicationStatus.Shortlisted => "#60a5fa",
+            ApplicationStatus.InterviewScheduled => "#a78bfa",
+            ApplicationStatus.Accepted => "#34d399",
+            ApplicationStatus.Rejected => "#ef4444",
+            _ => "#6b7280"
+        };
+    }
+}

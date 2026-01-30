@@ -1,0 +1,158 @@
+@page "/register"
+@using BusinessLogic.Services
+@using BusinessLogic.Models
+@using Portal.UI.Services
+@inject AuthenticationService AuthService
+@inject AuthState AuthState
+@inject NavigationManager Navigation
+
+<PageTitle>Register - Placement Tracker</PageTitle>
+
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div style="background: white; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); padding: 2rem; width: 100%; max-width: 450px;">
+        <!-- Header -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 2rem; color: #333; margin: 0;">🎓 Create Account</h1>
+            <p style="color: #666; margin-top: 0.5rem;">Join Placement Tracker</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div style="background: #fee; border-left: 4px solid #f44; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; color: #c33;">
+                @ErrorMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(SuccessMessage))
+        {
+            <div style="background: #efe; border-left: 4px solid #4a4; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; color: #3a3;">
+                @SuccessMessage
+            </div>
+        }
+
+        <form @onsubmit="HandleRegister">
+            <!-- Full Name -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Full Name</label>
+                <input type="text" @bind="FullName" class="form-control" placeholder="Enter your full name" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;" />
+            </div>
+
+            <!-- Email -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Email Address</label>
+                <input type="email" @bind="Email" class="form-control" placeholder="Enter your email" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;" />
+            </div>
+
+            <!-- Phone -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Phone Number</label>
+                <input type="tel" @bind="Phone" class="form-control" placeholder="Enter your phone number" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;" />
+            </div>
+
+            <!-- Role Selection -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">I am a</label>
+                <select @bind="SelectedRole" class="form-control" style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;">
+                    <option value="">Select Role</option>
+                    <option value="Student">Student</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+
+            <!-- Password -->
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Password</label>
+                <input type="password" @bind="Password" class="form-control" placeholder="Create a password" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333;">Confirm Password</label>
+                <input type="password" @bind="ConfirmPassword" class="form-control" placeholder="Confirm your password" required style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;" />
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; font-weight: 600; border: none; border-radius: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; cursor: pointer;">
+                @if (IsLoading)
+                {
+                    <span>Registering...</span>
+                }
+                else
+                {
+                    <span>Register</span>
+                }
+            </button>
+        </form>
+
+        <!-- Back to Login -->
+        <p style="text-align: center; color: #666; margin-top: 1rem;">
+            Already have an account? 
+            <NavLink href="/login" style="color: #667eea; font-weight: 600; text-decoration: none;">Login here</NavLink>
+        </p>
+    </div>
+</div>
+
+@code {
+    private string FullName = "";
+    private string Email = "";
+    private string Phone = "";
+    private string SelectedRole = "";
+    private string Password = "";
+    private string ConfirmPassword = "";
+    private string ErrorMessage = "";
+    private string SuccessMessage = "";
+    private bool IsLoading = false;
+
+    private async Task HandleRegister()
+    {
+        ErrorMessage = "";
+        SuccessMessage = "";
+        IsLoading = true;
+
+        try
+        {
+            // Validation
+            if (string.IsNullOrEmpty(FullName) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(SelectedRole) || string.IsNullOrEmpty(Password))
+            {
+                ErrorMessage = "Please fill all fields";
+                IsLoading = false;
+                return;
+            }
+
+            if (Password != ConfirmPassword)
+            {
+                ErrorMessage = "Passwords do not match";
+                IsLoading = false;
+                return;
+            }
+
+            if (Password.Length < 6)
+            {
+                ErrorMessage = "Password must be at least 6 characters";
+                IsLoading = false;
+                return;
+            }
+
+            var role = SelectedRole == "Admin" ? UserRole.Admin : UserRole.Student;
+            
+            if (AuthService.Register(Email, Password, FullName, Phone, role))
+            {
+                SuccessMessage = "Registration successful! Redirecting to login...";
+                await Task.Delay(2000);
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                ErrorMessage = "Email already exists. Please use a different email.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Registration error: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}

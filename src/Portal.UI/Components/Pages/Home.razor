@@ -1,167 +1,51 @@
 ﻿@page "/"
-@using BusinessLogic
-@inject DataProcessor Processor
+@using BusinessLogic.Models
+@using Portal.UI.Services
+@inject AuthState AuthState
+@inject NavigationManager Navigation
 
-<PageTitle>Placement Tracker - Dashboard</PageTitle>
+<PageTitle>Placement Tracker</PageTitle>
 
-<div class="dashboard-container">
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1>Placement Tracking Dashboard</h1>
-        <p>@Processor.GetGreeting("Administrator")</p>
-    </div>
-
-    <!-- Key Statistics -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Total Students</h3>
-            <div class="value">1,240</div>
-            <div class="subtitle">Enrolled in program</div>
-        </div>
-        <div class="stat-card success">
-            <h3>Placed Students</h3>
-            <div class="value">856</div>
-            <div class="subtitle">69% placement rate</div>
-        </div>
-        <div class="stat-card warning">
-            <h3>Pending</h3>
-            <div class="value">384</div>
-            <div class="subtitle">Awaiting placements</div>
-        </div>
-        <div class="stat-card">
-            <h3>Active Companies</h3>
-            <div class="value">42</div>
-            <div class="subtitle">Recruiting partners</div>
+@if (!AuthState.IsAuthenticated)
+{
+    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div style="text-align: center; color: white;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">🎓 Placement Tracker</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Your Gateway to Career Success</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <NavLink href="/login" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; display: inline-block;">Login</NavLink>
+                <NavLink href="/register" style="background: rgba(255,255,255,0.2); color: white; padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; border: 2px solid white; display: inline-block;">Register</NavLink>
+            </div>
         </div>
     </div>
-
-    <!-- Quick Actions -->
-    <div style="margin: 2rem 0;">
-        <h2>Quick Actions</h2>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <button class="btn btn-primary">
-                + Add New Student
-            </button>
-            <button class="btn btn-secondary">
-                + Register Company
-            </button>
-            <button class="btn btn-secondary">
-                Generate Report
-            </button>
-            <button class="btn btn-secondary">
-                View Analytics
-            </button>
-        </div>
-    </div>
-
-    <!-- Recent Placements -->
-    <div style="margin-top: 2rem;">
-        <h2>Recent Placements</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Student Name</th>
-                    <th>Company</th>
-                    <th>Position</th>
-                    <th>Package</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Raj Kumar</td>
-                    <td>Tech Solutions Ltd</td>
-                    <td>Software Engineer</td>
-                    <td>₹8,00,000</td>
-                    <td>Jan 25, 2026</td>
-                    <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-                <tr>
-                    <td>Priya Sharma</td>
-                    <td>Digital Innovations</td>
-                    <td>Data Analyst</td>
-                    <td>₹6,50,000</td>
-                    <td>Jan 24, 2026</td>
-                    <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-                <tr>
-                    <td>Arjun Singh</td>
-                    <td>CloudTech Systems</td>
-                    <td>DevOps Engineer</td>
-                    <td>₹9,50,000</td>
-                    <td>Jan 23, 2026</td>
-                    <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-                <tr>
-                    <td>Anjali Gupta</td>
-                    <td>AI Futures Inc</td>
-                    <td>ML Engineer</td>
-                    <td>₹10,50,000</td>
-                    <td>Jan 22, 2026</td>
-                    <td><span class="badge badge-warning">Offered</span></td>
-                </tr>
-                <tr>
-                    <td>Vikram Patel</td>
-                    <td>Digital Marketing Pro</td>
-                    <td>Marketing Manager</td>
-                    <td>₹5,50,000</td>
-                    <td>Jan 21, 2026</td>
-                    <td><span class="badge badge-success">Confirmed</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Company Performance -->
-    <div style="margin-top: 2rem;">
-        <h2>Top Recruiting Companies</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Company Name</th>
-                    <th>Placements</th>
-                    <th>Avg Package</th>
-                    <th>Positions Open</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tech Solutions Ltd</td>
-                    <td>145</td>
-                    <td>₹7,50,000</td>
-                    <td>25</td>
-                    <td><span class="badge badge-success">Active</span></td>
-                </tr>
-                <tr>
-                    <td>Digital Innovations</td>
-                    <td>98</td>
-                    <td>₹6,80,000</td>
-                    <td>15</td>
-                    <td><span class="badge badge-success">Active</span></td>
-                </tr>
-                <tr>
-                    <td>CloudTech Systems</td>
-                    <td>87</td>
-                    <td>₹9,20,000</td>
-                    <td>10</td>
-                    <td><span class="badge badge-success">Active</span></td>
-                </tr>
-                <tr>
-                    <td>AI Futures Inc</td>
-                    <td>56</td>
-                    <td>₹10,80,000</td>
-                    <td>8</td>
-                    <td><span class="badge badge-info">Recruiting</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<style>
-    .dashboard-container {
-        padding: 2rem;
+}
+else
+{
+    @if (AuthState.UserRole == BusinessLogic.Models.UserRole.Admin)
+    {
+        <RedirectComponent Url="/dashboard" />
     }
-</style>
+    else
+    {
+        <RedirectComponent Url="/student-dashboard" />
+    }
+}
+
+@code {
+    public class RedirectComponent : ComponentBase
+    {
+        [Parameter]
+        public string Url { get; set; }
+
+        [Inject]
+        private NavigationManager NavManager { get; set; }
+
+        protected override void OnInitialized()
+        {
+            if (!string.IsNullOrEmpty(Url))
+            {
+                NavManager.NavigateTo(Url, replace: true);
+            }
+        }
+    }
+}
